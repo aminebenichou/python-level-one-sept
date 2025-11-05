@@ -1,4 +1,5 @@
 cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+possibilities=[[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
 
 print(f" {cells[0]} | {cells[1]} | {cells[2]} ")
 print("___|___|___")
@@ -37,24 +38,30 @@ while running:
     print(f" {cells[6]} | {cells[7]} | {cells[8]} ")
     print("   |   |   ")
 
-    turn += 1
-    k=0
-    while k <7:
-        if cells[k]==cells[k+1]==cells[k+2]:
-            print("You win")
+    for possibility in possibilities:
+        if cells[possibility[0]]==cells[possibility[1]]==cells[possibility[2]]:
+            print(f"Player {cells[possibility[0]]} wins!")
             running = False
-        k += 3
-    k=0
-    while k <3:
-        if cells[k]==cells[k+3]==cells[k+6]:
-            print("You win")
-            running = False
-        k += 1
-    if cells[0]==cells[4]==cells[8]:
-            print("You win")
-            running = False
-    if cells[2]==cells[4]==cells[6]:
-            print("You win")
-            running = False
+            break
+
+    # turn += 1
+    # k=0
+    # while k <7:
+    #     if cells[k]==cells[k+1]==cells[k+2]:
+    #         print("You win")
+    #         running = False
+    #     k += 3
+    # k=0
+    # while k <3:
+    #     if cells[k]==cells[k+3]==cells[k+6]:
+    #         print("You win")
+    #         running = False
+    #     k += 1
+    # if cells[0]==cells[4]==cells[8]:
+    #         print("You win")
+    #         running = False
+    # if cells[2]==cells[4]==cells[6]:
+    #         print("You win")
+    #         running = False
 
 
