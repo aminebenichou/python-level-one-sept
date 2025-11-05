@@ -8,12 +8,12 @@ print(f" {cells[6]} | {cells[7]} | {cells[8]} ")
 print("   |   |   ")
 running = True
 player = "X"
-turn = 0
+# turn = 0
 while running:
-    if turn%2==0:  # % -> reste du division sur 2
-        player="X"
-    else:
-        player="O"
+    # if turn%2==0:  # % -> reste du division sur 2
+    #     player="X"
+    # else:
+    #     player="O"
     player_input = int(input("Enter a position to place X (1-9): "))
 
     i=0
@@ -23,10 +23,10 @@ while running:
             break  
         i = i + 1
 
-    # if player=="X":
-    #     player="O"
-    # else:
-    #     player="X"
+    if player=="X":
+        player="O"
+    else:
+        player="X"
 
     
 
