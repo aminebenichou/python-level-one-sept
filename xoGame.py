@@ -6,7 +6,17 @@ pygame.init()
 screen = pygame.display.set_mode((600, 600))
 clock = pygame.time.Clock()
 running = True
-
+squares = [
+    {'start_coord':(0,0), 'end_coord':(190,190), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(200,0), 'end_coord':(390,190), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(400,0), 'end_coord':(590,190), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(0,200), 'end_coord':(190,390), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(200,200), 'end_coord':(390,390), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(400,200), 'end_coord':(590,390), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(0,400), 'end_coord':(190,590), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(200,400), 'end_coord':(390,590), 'x_checked':False, 'o_checked':False},
+    {'start_coord':(400,400), 'end_coord':(590,590), 'x_checked':False, 'o_checked':False},
+]
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -18,18 +28,9 @@ while running:
     screen.fill("black")
 
     # RENDER YOUR GAME HERE
-
-    pygame.draw.rect(screen, 'white', (0,0, 190,190))
-    pygame.draw.rect(screen, 'white', (0,200, 190,190))
-    pygame.draw.rect(screen, 'white', (0,400, 190,190))
-
-    pygame.draw.rect(screen, 'white', (200,0, 190,190))
-    pygame.draw.rect(screen, 'white', (200,200, 190,190))
-    pygame.draw.rect(screen, 'white', (200,400, 190,190))
-
-    pygame.draw.rect(screen, 'white', (400,0, 190,190))
-    pygame.draw.rect(screen, 'white', (400,200, 190,190))
-    pygame.draw.rect(screen, 'white', (400,400, 190,190))
+    for square in squares:
+        pygame.draw.rect(screen, 'white', (square['start_coord'][0], square['start_coord'][1], 190,190))
+   
     # flip() the display to put your work on screen
     pygame.display.flip()
 
