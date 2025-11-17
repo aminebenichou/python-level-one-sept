@@ -18,6 +18,36 @@ squares = [
     {'start_coord':(400,400), 'end_coord':(590,590), 'x_checked':False, 'o_checked':False},
 ]
 mouse_coord = None
+turn = 0
+
+def draw_o(square):
+    if square['o_checked']:
+        pygame.draw.circle(screen, 'blue', (square['start_coord'][0]+95, square['start_coord'][1]+95), 50)
+        pygame.draw.circle(screen, 'white', (square['start_coord'][0]+95, square['start_coord'][1]+95), 40)
+
+
+
+def draw_x(square):
+    if square['x_checked']:
+        first_line_start_pos= (square['start_coord'][0]+10, square['start_coord'][1]+10)
+        first_line_end_pos= (square['end_coord'][0]-10, square['end_coord'][1]-10)
+        second_line_start_pos=(square['end_coord'][0]-10, square['start_coord'][1]+10) # (x_end, y_start)
+        second_line_end_pos=(square['start_coord'][0]+10, square['end_coord'][1]-10) # (x_start, y_end)
+        
+        pygame.draw.line(screen, 'red', first_line_start_pos, first_line_end_pos,10)
+        pygame.draw.line(screen, 'red', second_line_start_pos, second_line_end_pos,10)
+
+
+def exchanging(square, mouse_coord):
+    if mouse_coord!=None and  square['start_coord'][0]<mouse_coord[0]<square['end_coord'][0] and square['start_coord'][1]<mouse_coord[1]<square['end_coord'][1]:
+            if turn%2==0 and not square['x_checked']:
+                square['o_checked']=True
+            elif not square['o_checked']:
+                square['x_checked']=True
+            mouse_coord=None
+
+
+            
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -27,6 +57,7 @@ while running:
         # checking for mouse click
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_coord=pygame.mouse.get_pos()
+            turn += 1
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
 
@@ -35,16 +66,17 @@ while running:
     # RENDER YOUR GAME HERE
     for square in squares:
         pygame.draw.rect(screen, 'white', (square['start_coord'][0], square['start_coord'][1], 190,190))
-        if square['o_checked']:
-            pygame.draw.circle(screen, 'blue', (square['start_coord'][0]+95, square['start_coord'][1]+95), 50)
-            pygame.draw.circle(screen, 'white', (square['start_coord'][0]+95, square['start_coord'][1]+95), 40)
+          
+        draw_o(square)
         
-        if mouse_coord!=None and  square['start_coord'][0]<mouse_coord[0]<square['end_coord'][0] and square['start_coord'][1]<mouse_coord[1]<square['end_coord'][1]:
-            square['o_checked']=True
-            mouse_coord=None
+        draw_x(square)
+
+        exchanging(square, mouse_coord)
+        
     # flip() the display to put your work on screen
     pygame.display.flip()
 
     clock.tick(60)  # limits FPS to 60
+    
 
 pygame.quit()
