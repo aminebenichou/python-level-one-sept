@@ -19,6 +19,11 @@ squares = [
 ]
 mouse_coord = None
 turn = 0
+my_font = pygame.font.Font(None, 50)
+possibilities=[[0,1,2], [3,4,5], [6,7,8], [0,3,6], 
+               [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+
+
 
 def draw_o(square):
     if square['o_checked']:
@@ -47,7 +52,7 @@ def exchanging(square, mouse_coord):
             mouse_coord=None
 
 
-            
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -72,6 +77,14 @@ while running:
         draw_x(square)
 
         exchanging(square, mouse_coord)
+
+    for possibility in possibilities:
+        if squares[possibility[0]]['x_checked'] and squares[possibility[1]]['x_checked'] and squares[possibility[2]]['x_checked'] or (squares[possibility[0]]['o_checked'] and squares[possibility[1]]['o_checked'] and squares[possibility[2]]['o_checked']):
+            text = my_font.render(f"You Won", True, 'red')
+            screen.fill('black')
+            screen.blit(text, (280,280))
+
+            
         
     # flip() the display to put your work on screen
     pygame.display.flip()
