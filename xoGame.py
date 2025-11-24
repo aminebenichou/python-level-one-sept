@@ -18,7 +18,6 @@ squares = [
     {'start_coord':(400,400), 'end_coord':(590,590), 'x_checked':False, 'o_checked':False},
 ]
 
-
 mouse_coord = None
 turn = 0
 my_font = pygame.font.Font(None, 50)
@@ -51,10 +50,8 @@ def exchanging(square):
     if mouse_coord!=None and  square['start_coord'][0]<mouse_coord[0]<square['end_coord'][0] and square['start_coord'][1]<mouse_coord[1]<square['end_coord'][1]:
         if turn%2==0 and not square['x_checked']:
             square['o_checked']=True
-            mouse_coord=None
             turn += 1
         elif not square['o_checked']:
-            mouse_coord=None
             square['x_checked']=True
             turn += 1
 
@@ -82,23 +79,24 @@ while running:
         pygame.draw.rect(screen, 'white', (square['start_coord'][0], square['start_coord'][1], 190,190))
           
         draw_o(square)
-        
         draw_x(square)
-
         exchanging(square) 
-
+    # decide who's the winner
     for possibility in possibilities:
         if squares[possibility[0]]['x_checked'] and squares[possibility[1]]['x_checked'] and squares[possibility[2]]['x_checked'] or (squares[possibility[0]]['o_checked'] and squares[possibility[1]]['o_checked'] and squares[possibility[2]]['o_checked']):
             text = my_font.render(f"You Won", True, 'red')
             screen.fill('black')
             screen.blit(text, (280,280))
-
+    # only works in case of draw
     if turn==9:
         text = my_font.render(f"Draw, press Entre to replay", True, 'red')
         exit_text = my_font.render(f"press space to exit", True, 'red')
+        
         screen.fill('black')
+
         screen.blit(text, (20,280))
         screen.blit(exit_text, (20,330))
+        
         if keys[pygame.K_RETURN]:
             for square in squares:
                 square['x_checked']=False
